@@ -6,6 +6,7 @@ local date = os.date
 local floor = math.floor
 local open = io.open
 local table = table
+local tostring = tostring
 
 local recordpath = skynet_m.getenv("recordpath")
 
@@ -22,7 +23,7 @@ function CMD.save(msg)
         elseif mt ~= "string" then
             ms = tostring(msg)
         end
-        f:write(ms .. "\n")
+        f:write(ms)
         f:flush()
         print(ms)
 	end
