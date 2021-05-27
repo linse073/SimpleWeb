@@ -23,7 +23,7 @@ function CMD.save(msg)
         elseif mt ~= "string" then
             ms = tostring(msg)
         end
-        f:write(ms)
+        f:write(ms .. "\n")
         f:flush()
         print(ms)
 	end
