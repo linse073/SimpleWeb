@@ -1,0 +1,19 @@
+root = "./"
+skynetroot = "./skynet/"
+webroot = "./web/"
+
+thread = 8
+logger = "userlog"
+logservice = "snlua"
+logpath = "./log"
+harbor = 0
+start = "main"	-- main script
+bootstrap = "snlua bootstrap"	-- The service for bootstrap
+luaservice = webroot.."service/?.lua;"..skynetroot.."service/?.lua"
+lualoader = skynetroot.."lualib/loader.lua"
+cpath = skynetroot.."cservice/?.so"
+lua_path = webroot.."lib/?.lua;"..webroot.."lib/?/init.lua;"..skynetroot.."lualib/?.lua;"..skynetroot.."lualib/?/init.lua"
+lua_cpath = root.."lib/?.so;"..skynetroot.."luaclib/?.so"
+-- daemon = "./skynet.pid"
+debug_port = 8100
+recordpath = "./record"
