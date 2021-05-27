@@ -73,7 +73,7 @@ skynet_m.start(function()
 					local q = urllib.parse_query(query)
 					local tmp = {}
 					for k, v in pairs(q) do
-						table.insert(tmp, string.format("query: %s = %s", k, v))
+						table.insert(tmp, string.format("%s=%s", k, v))
 					end
 					skynet_m.send_lua(record, "save", tmp)
 				end

@@ -5,7 +5,7 @@ local string = string
 local date = os.date
 local floor = math.floor
 local open = io.open
-local ipairs = ipairs
+local table = table
 
 local recordpath = skynet_m.getenv("recordpath")
 
@@ -15,11 +15,16 @@ local CMD = {}
 
 function CMD.save(msg)
     if f then
-        for k, v in ipairs(msg) do
-            f:write(v .. "\n")
-            f:flush()
-            print(v)
+        local ms = msg
+        local mt = type(msg)
+        if mt == "table" then
+            ms = table.concat(msg, ";")
+        elseif mt ~= "string" then
+            ms = tostring(msg)
         end
+        f:write(ms .. "\n")
+        f:flush()
+        print(ms)
 	end
 end
 
