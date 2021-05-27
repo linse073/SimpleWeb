@@ -103,7 +103,7 @@ skynet_m.start(function()
 	end
 	local balance = 1
 	local id = socket.listen("0.0.0.0", 8877)
-	skynet_m.error(string.format("Listen web port 8001 protocol:%s", proto))
+	skynet_m.error(string.format("Listen web port 8877 protocol:%s", proto))
 	socket.start(id , function(aid, addr)
 		skynet_m.error(string.format("%s connected, pass it to agent :%08x", addr, agent[balance]))
 		skynet_m.send(agent[balance], "lua", aid)
