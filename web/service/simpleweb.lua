@@ -75,6 +75,7 @@ skynet_m.start(function()
 					for k, v in pairs(q) do
 						table.insert(tmp, string.format("%s=%s", k, v))
 					end
+					table.sort(tmp)
 					skynet_m.send_lua(record, "save", tmp)
 				end
 				response(id, interface.write, code, "ok")
