@@ -56,12 +56,28 @@ local function gen_interface(proto, fd)
 	end
 end
 
-local function get_quality(cpu)
-	local lc = cpu:lower()
-	for k, v in pairs(quality_map) do
-		if string.find(lc, k, 1, true) then
-			skynet_m.error(string.format("Match cpu : %s %S.", lc, k))
-			return v
+local function get_quality(cpu, model)
+	if model then
+		local lm = model:lower()
+		local index = string.match(lm, model)
+		if index then
+			local num = tonumber(index)
+			if num and num >= 8 then
+				return 3
+			else
+				return 2
+			end
+		end
+	end
+	if cpu then
+		local lc = cpu:lower()
+		if lc ~= "unknown" then
+			for k, v in pairs(quality_map) do
+				if string.find(lc, k, 1, true) then
+					skynet_m.error(string.format("Match cpu : %s %s.", lc, k))
+					return v
+				end
+			end
 		end
 	end
 	return "no"
@@ -84,7 +100,7 @@ skynet_m.start(function()
 				response(id, interface.write, code)
 			else
 				local _, query = urllib.parse(url)
-				local cpu
+				local cpu, model
 				if query then
 					local q = urllib.parse_query(query)
 					local tmp = {}
@@ -93,10 +109,10 @@ skynet_m.start(function()
 					end
 					table.sort(tmp)
 					skynet_m.send_lua(record, "save", tmp)
-					cpu = q["cpu"]
+					cpu, model = q["cpu"], q["model"]
 				end
 				if cpu then
-					response(id, interface.write, code, get_quality(cpu))
+					response(id, interface.write, code, get_quality(cpu, model))
 				else
 					response(id, interface.write, code, "no")
 				end

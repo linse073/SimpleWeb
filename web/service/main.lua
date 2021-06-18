@@ -10,6 +10,7 @@ skynet_m.start(function()
     skynet_m.newservice("debug_console", skynet_m.getenv("debug_port"))
 
     -- service
+    skynet_m.uniqueservice("cache")
     skynet_m.uniqueservice("record")
     skynet_m.uniqueservice("simpleweb")
 
