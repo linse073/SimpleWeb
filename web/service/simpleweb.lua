@@ -3,6 +3,8 @@ local socket = require "skynet.socket"
 local httpd = require "http.httpd"
 local sockethelper = require "http.sockethelper"
 local urllib = require "http.url"
+local share = require "share"
+
 local table = table
 local string = string
 
@@ -12,6 +14,7 @@ protocol = protocol or "http"
 if mode == "agent" then
 
 local record
+local quality_map
 
 local function response(id, write, ...)
 	local ok, err = httpd.write_response(write, ...)
@@ -53,8 +56,20 @@ local function gen_interface(proto, fd)
 	end
 end
 
+local function get_quality(cpu)
+	local lc = cpu:lower()
+	for k, v in pairs(quality_map) do
+		if string.find(lc, k, 1, true) then
+			skynet_m.error(string.format("Match cpu : %s %S.", lc, k))
+			return v
+		end
+	end
+	return "no"
+end
+
 skynet_m.start(function()
 	record = skynet_m.queryservice("record")
+	quality_map = share.quality_map
 
 	skynet_m.dispatch("lua", function(_, _, id)
 		socket.start(id)
@@ -69,6 +84,7 @@ skynet_m.start(function()
 				response(id, interface.write, code)
 			else
 				local _, query = urllib.parse(url)
+				local cpu
 				if query then
 					local q = urllib.parse_query(query)
 					local tmp = {}
@@ -77,8 +93,13 @@ skynet_m.start(function()
 					end
 					table.sort(tmp)
 					skynet_m.send_lua(record, "save", tmp)
+					cpu = q["cpu"]
 				end
-				response(id, interface.write, code, "ok")
+				if cpu then
+					response(id, interface.write, code, get_quality(cpu))
+				else
+					response(id, interface.write, code, "no")
+				end
 			end
 		else
 			if url == sockethelper.socket_error then
