@@ -64,7 +64,7 @@ end
 local function get_quality(cpu, model)
 	if model then
 		local lm = model:lower()
-		local index = string.match(lm, "iphone(%d)")
+		local index = string.match(lm, "iphone(%d+)")
 		if index then
 			skynet_m.error(string.format("Match iphone : %s %s.", model, index))
 			local num = tonumber(index)
