@@ -7,6 +7,11 @@ local share = require "share"
 
 local table = table
 local string = string
+local tonumber = tonumber
+local pairs = pairs
+local error = error
+local print = print
+local tostring = tostring
 
 local mode, protocol = ...
 protocol = protocol or "http"
@@ -59,8 +64,9 @@ end
 local function get_quality(cpu, model)
 	if model then
 		local lm = model:lower()
-		local index = string.match(lm, model)
+		local index = string.match(lm, "iphone(%d)")
 		if index then
+			skynet_m.error(string.format("Match iphone : %s %s.", model, index))
 			local num = tonumber(index)
 			if num and num >= 8 then
 				return 3
@@ -112,7 +118,7 @@ skynet_m.start(function()
 					cpu, model = q["cpu"], q["model"]
 				end
 				if cpu then
-					response(id, interface.write, code, get_quality(cpu, model))
+					response(id, interface.write, code, tostring(get_quality(cpu, model)))
 				else
 					response(id, interface.write, code, "no")
 				end
