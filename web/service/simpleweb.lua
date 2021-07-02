@@ -16,6 +16,8 @@ local tostring = tostring
 local mode, protocol = ...
 protocol = protocol or "http"
 
+local http_port = skynet_m.getenv_num("http_port")
+
 if mode == "agent" then
 
 local record
@@ -146,7 +148,7 @@ skynet_m.start(function()
 		agent[i] = skynet_m.newservice(SERVICE_NAME, "agent", proto)
 	end
 	local balance = 1
-	local id = socket.listen("0.0.0.0", 8877)
+	local id = socket.listen("0.0.0.0", http_port)
 	skynet_m.error(string.format("Listen web port 8877 protocol:%s", proto))
 	socket.start(id , function(aid, addr)
 		skynet_m.error(string.format("%s connected, pass it to agent :%08x", addr, agent[balance]))

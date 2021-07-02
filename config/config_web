@@ -15,5 +15,6 @@ cpath = skynetroot.."cservice/?.so"
 lua_path = webroot.."lib/?.lua;"..webroot.."lib/?/init.lua;"..webroot.."data/?.lua;"..webroot.."data/?/init.lua;"..skynetroot.."lualib/?.lua;"..skynetroot.."lualib/?/init.lua"
 lua_cpath = root.."lib/?.so;"..skynetroot.."luaclib/?.so"
 -- daemon = "./skynet.pid"
-debug_port = 8100
+debug_port = 9045
 recordpath = "./record"
+http_port = 9046
