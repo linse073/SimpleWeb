@@ -7,6 +7,8 @@ local floor = math.floor
 local open = io.open
 local table = table
 local tostring = tostring
+local type = type
+local print = print
 
 local recordpath = skynet_m.getenv("recordpath")
 

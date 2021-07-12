@@ -5,6 +5,7 @@ local string = string
 local date = os.date
 local floor = math.floor
 local open = io.open
+local print = print
 
 local logpath = skynet_m.getenv("logpath")
 
