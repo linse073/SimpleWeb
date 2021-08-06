@@ -5,13 +5,13 @@ cd $basepath
 
 while true
 do
-	count=`ps -ef | grep skynet | grep -v "grep" | wc -l`
+	count=`ps -ef | grep config_web | grep -v "grep" | wc -l`
 
 	if [ $count -gt 0 ]; then
 	    :
 	else
 	    echo "program has crashed, restarting..."
-	    screen shell/run.sh
+	    shell/run.sh
 	fi
 	
 	sleep 10
