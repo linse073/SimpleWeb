@@ -18,3 +18,5 @@ daemon = "./skynet_web.pid"
 debug_port = 9045
 recordpath = "./record"
 http_port = 9046
+http_port_01 = 9047
+recordpath_01 = "./record_01"

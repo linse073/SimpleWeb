@@ -10,7 +10,7 @@ local tostring = tostring
 local type = type
 local print = print
 
-local recordpath = skynet_m.getenv("recordpath")
+local recordpath = skynet_m.getenv("recordpath_01")
 
 local f
 

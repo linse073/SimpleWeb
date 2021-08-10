@@ -13,6 +13,8 @@ skynet_m.start(function()
     skynet_m.uniqueservice("cache")
     skynet_m.uniqueservice("record")
     skynet_m.uniqueservice("simpleweb")
+    skynet_m.uniqueservice("record_01")
+    skynet_m.uniqueservice("simpleweb_01")
 
     skynet_m.log("Server start finish.")
 

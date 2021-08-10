@@ -9,4 +9,7 @@ log_dir="log"
 record_dir="record"
 [ ! -d "$record_dir" ] && mkdir -p "$record_dir"
 
+record_dir_01="record_01"
+[ ! -d "$record_dir_01" ] && mkdir -p "$record_dir_01"
+
 ./skynet/skynet config/config_web
